@@ -12,15 +12,15 @@
 		<% if warnings_no_query_sorted_nonignored.length + queries_with_warnings_sorted_nonignored.length > 0 %>
 			<p class="title"><%= warnings_no_query_sorted_nonignored.length + queries_with_warnings_sorted_nonignored.length %> Errors:</p>
 			<ul>
-				<%= render :partial => "/warning_no_query", :collection => warnings_no_query_sorted_nonignored %>
-				<%= render :partial => "/query_with_warning", :collection => queries_with_warnings_sorted_nonignored %>
+				<%= render :partial => "views/warning_no_query", :collection => warnings_no_query_sorted_nonignored %>
+				<%= render :partial => "views/query_with_warning", :collection => queries_with_warnings_sorted_nonignored %>
 			</ul>
 		<% end %>
 		<% if warnings_no_query_sorted_ignored.length + queries_with_warnings_sorted_ignored.length > 0 %>
 			<%= warnings_no_query_sorted_ignored.length + queries_with_warnings_sorted_ignored.length %> Warnings:
 			<ul id="query_review_ignored_warnings">
-				<%= render :partial => "/warning_no_query", :collection => warnings_no_query_sorted_ignored %>
-				<%= render :partial => "/query_with_warning", :collection => queries_with_warnings_sorted_ignored %>
+				<%= render :partial => "views/warning_no_query", :collection => warnings_no_query_sorted_ignored %>
+				<%= render :partial => "views/query_with_warning", :collection => queries_with_warnings_sorted_ignored %>
 			</ul>
 		<% end %>
 	<% end %>
@@ -37,7 +37,7 @@
           <% if QueryReviewer::CONFIGURATION["production_data"] %>
             <%= duration_with_color(query.duration.to_f) %>s
           <% end %>
-          <%= render :partial => "/query_sql", :object => query %>
+          <%= render :partial => "views/query_sql", :object => query %>
             <% if query.select? %>
               <a href="javascript: query_review_toggle('warning_<%= query.id %>_explain')" title="show/hide sql">EXPLN</a>
             <% end %>
@@ -46,15 +46,15 @@
             <% end %>
             <a href="javascript: query_review_toggle('warning_<%= query.id %>_trace')" title="show/hide stack trace">TRACE</a>
             <div style="display: none" id="warning_<%= query.id %>_explain" class="indent small tbpadded">
-              <%= render :partial => "/explain", :locals => {:query => query} %>
+              <%= render :partial => "views/explain", :locals => {:query => query} %>
             </div>
             <% if QueryReviewer::CONFIGURATION["profiling"] && query.profile %>
               <div style="display: none" id="warning_<%= query.id %>_profile" class="indent small">
-                <%= render :partial => "/profile", :locals => {:query => query} %>
+                <%= render :partial => "views/profile", :locals => {:query => query} %>
               </div>
             <% end %>
             <div style="display: none" id="warning_<%= query.id %>_trace" class="indent small">
-              <%= render :partial => "/trace", :object => query.relevant_trace, :locals => {:query_id => query.id, :full_trace => query.full_trace} %>
+              <%= render :partial => "views/trace", :object => query.relevant_trace, :locals => {:query_id => query.id, :full_trace => query.full_trace} %>
             </div>
         </li>
         <% end %>

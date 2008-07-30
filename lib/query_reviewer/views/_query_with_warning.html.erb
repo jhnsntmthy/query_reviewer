@@ -1,6 +1,6 @@
 <li id="query_<%= query_with_warning.id %>">
 	<div>
-		<%= render :partial => "/spectrum", :locals => {:severity => query_with_warning.max_severity} %>
+		<%= render :partial => "views/spectrum", :locals => {:severity => query_with_warning.max_severity} %>
     <% if QueryReviewer::CONFIGURATION["production_data"] %>
       <div style="float: left; padding-right: 5px;">
         <%= duration_with_color(query_with_warning.duration.to_f) %>s
@@ -33,17 +33,17 @@
 		<% end %>
 	</p>
 	<p style="display: none" id="warning_<%= query_with_warning.id %>_sql" class="indent small tbpadded">
-		<%= render :partial => "/query_sql", :object => query_with_warning %>
+		<%= render :partial => "views/query_sql", :object => query_with_warning %>
 	</p>
 	<div style="display: none" id="warning_<%= query_with_warning.id %>_explain" class="indent small tbpadded">
-		<%= render :partial => "/explain", :locals => {:query => query_with_warning} %>
+		<%= render :partial => "views/explain", :locals => {:query => query_with_warning} %>
 	</div>
   <% if QueryReviewer::CONFIGURATION["profiling"] && query_with_warning.profile %>
     <div style="display: none" id="warning_<%= query_with_warning.id %>_profile" class="indent small tbpadded">
-      <%= render :partial => "/profile", :locals => {:query => query_with_warning} %>
+      <%= render :partial => "views/profile", :locals => {:query => query_with_warning} %>
     </div>
   <% end %>
   <div style="display: none" id="warning_<%= query_with_warning.id %>_trace" class="indent small">
-		<%= render :partial => "/trace", :object => query_with_warning.relevant_trace, :locals => {:query_id => query_with_warning.id, :full_trace => query_with_warning.full_trace} %>
+		<%= render :partial => "views/trace", :object => query_with_warning.relevant_trace, :locals => {:query_id => query_with_warning.id, :full_trace => query_with_warning.full_trace} %>
 	</div>
 </li>

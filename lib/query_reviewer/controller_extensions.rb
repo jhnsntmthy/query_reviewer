@@ -16,14 +16,14 @@ module QueryReviewer
 
     def query_review_output(ajax = false)
       if QueryReviewer::CONFIGURATION["enabled"]
-        faux_view = QueryViewBase.new([File.join(File.dirname(__FILE__), "views")], {}, self)
+        faux_view = QueryViewBase.new([File.join(File.dirname(__FILE__))], {}, self)
         queries = SqlQueryCollection.new(Thread.current["queries"])
         queries.analyze!
         faux_view.instance_variable_set("@queries", queries)
         if ajax
-          js = faux_view.render(:partial => "/box_ajax.js")
+          js = faux_view.render(:partial => "views/box_ajax.js")
         else
-          html = faux_view.render(:partial => "/box")
+          html = faux_view.render(:partial => "views/box")
         end
       else
         ""
